@@ -4,7 +4,8 @@ const DEFAULT_BASE_URL = 'http://localhost:8000'
 
 export function getApiBaseUrl(): string {
   const v = import.meta.env.VITE_API_BASE_URL as string | undefined
-  return (v && v.trim()) || DEFAULT_BASE_URL
+  const raw = (v && v.trim()) || DEFAULT_BASE_URL
+  return raw.replace(/\/+$/, '')
 }
 
 export async function fetchLeaderboard(signal?: AbortSignal): Promise<LeaderboardEntry[]> {

@@ -21,7 +21,30 @@ npm run dev
 ## API sync
 
 - REST: `GET {VITE_API_BASE_URL}/leaderboard`
-- WS: `ws(s)://{host}/ws?username=...`
+- WS: `ws(s)://{host}/ws?username=...` (HTTPS API URL → **`wss://`** automatically)
+
+## Deploy frontend on Vercel + backend on Render
+
+1. **Backend** is already live, for example: `https://mathquiz-be.onrender.com`
+
+2. **Vercel project**
+   - Import the repo (or deploy from the `frontend` folder if the repo is monorepo).
+   - **Root Directory**: set to `frontend` if the repo root is `maths-fun`.
+   - **Framework Preset**: Vite.
+
+3. **Environment variable** (Vercel → Project → Settings → Environment Variables):
+   - Name: `VITE_API_BASE_URL`
+   - Value: `https://mathquiz-be.onrender.com` (no trailing slash)
+   - Apply to **Production** (and Preview if you use preview deployments with the same backend).
+
+4. **Redeploy** after adding the variable (Vite bakes env in at build time).
+
+5. **WebSockets**
+   - With `VITE_API_BASE_URL` on **HTTPS**, the app uses **`wss://mathquiz-be.onrender.com/ws?username=...`**.
+   - Your FastAPI CORS is already `allow_origins=["*"]`, so the Vercel origin is allowed for normal REST calls.
+   - Render WebSocket connections work on the same URL as HTTP; if the service was cold-starting, the first WS connect can take a few seconds.
+
+6. **SPA routing**: `vercel.json` rewrites all paths to `index.html` so `/play` works on refresh.
 
 # React + TypeScript + Vite
 
