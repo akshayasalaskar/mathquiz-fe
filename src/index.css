@@ -1,0 +1,33 @@
+:root {
+  /* Provided palette */
+  --bg: #BDDDFC;
+  --primary: #88BDF2;
+  --secondary: #6A89A7;
+  --text: #384959;
+
+  /* Neutrals (additional, to avoid all-blue UI) */
+  --page: #F7FAFF;
+  --surface: #FFFFFF;
+  --border: #E3ECF7;
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+}
